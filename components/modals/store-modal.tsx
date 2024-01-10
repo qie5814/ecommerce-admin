@@ -9,13 +9,13 @@ import { toast } from "react-hot-toast";
 
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { Modal } from "@/components/ui/modal";
-import { 
+import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -40,15 +40,15 @@ export const StoreModal = () => {
     try {
       setLoading(true);
 
-      const response = await axios.post('/api/stores', values);
+      const response = await axios.post("/api/stores", values);
 
-      toast.success("Store created.")      
+      window.location.assign(`/${response.data.id}`);
     } catch (error) {
-      toast.error("Something went wrong.")
+      toast.error("Something went wrong.");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
     <Modal
@@ -68,24 +68,27 @@ export const StoreModal = () => {
                   <FormItem>
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input 
+                      <Input
                         disabled={loading}
-                        placeholder="E-Commerce" 
+                        placeholder="E-Commerce"
                         {...field}
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
-                )} 
+                )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end w-full">
                 <Button
                   disabled={loading}
                   variant="outline"
-                  onClick={storeModal.onClose}>
-                    Cancel
+                  onClick={storeModal.onClose}
+                >
+                  Cancel
                 </Button>
-                <Button disabled={loading} type="submit">Continue</Button>
+                <Button disabled={loading} type="submit">
+                  Continue
+                </Button>
               </div>
             </form>
           </Form>
